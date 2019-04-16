@@ -1,0 +1,32 @@
+{
+  "name": "node-red-contrib-ur-robot",
+  "version": "1.0.0",
+  "description": "https://github.com/hermajul/node-red-contrib-ur-robot.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hermajul/node-red-contrib-ur-robot.git"
+  },
+  "dependencies": {
+    "ur-rtde": "1.0.0"
+  },
+  "keywords": [
+    "universal",
+    "robots",
+    "realtime-data-interface",
+    "ur3",
+    "ur5",
+    "ur10"
+  ],
+  "node-red" : {
+    "nodes": {
+        "dashboard-server": "dashboard-server.js",
+        "rtde-interface": "rtde-interface.js"
+        }
+  },
+  "author": "hermajul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hermajul/node-red-contrib-ur-robot/issues"
+  },
+  "homepage": "https://github.com/hermajul/node-red-contrib-ur-robot#readme"
+}

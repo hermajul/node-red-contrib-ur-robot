@@ -1,0 +1,123 @@
+<script type="text/javascript">
+
+var values = [
+     {value:"load",                 argument: true, placeholder: "/programs/example.urp"},
+     {value:"play",                 argument: false},
+     {value:"stop",                 argument: false},
+     {value:"pause",                argument: false},
+     {value:"quit",                 argument: false},
+     {value:"shutdown",             argument: false},
+     {value:"running",              argument: false},
+     {value:"robotmode",            argument: false},
+     {value:"get loaded program",   argument: false},
+     {value:"popup",                argument: true, placeholder: "popup message"},
+     {value:"close popup",          argument: false},
+     {value:"addToLog",             argument: true, placeholder: "log message"},
+     {value:"isProgramSaved",       argument: false},
+     {value:"programmState",        argument: false},
+     {value:"PolyscopeVersion",     argument: false},
+     {value:"setUserRole",          argument: true, placeholder: "programmer, operator, none, locked or restricted"},
+     {value:"power on",             argument: false},
+     {value:"power off",            argument: false},
+     {value:"brake release",        argument: false},
+     {value:"safetymode",           argument: false},
+     {value:"unlock protective stop",argument: false},
+     {value:"close safety popup",   argument: false},
+     {value:"load installation",    argument: true, placeholder: "default.installation"},
+     {value:"restart safety",       argument: false},
+   ];
+    RED.nodes.registerType('dashboard-server',{
+        category: 'ur robot',
+        color: '#C0DEED',
+        defaults: {
+            name: {value:""},
+            host: {value:"localhost",required:true},
+            port: {value:29999,required:true,validate:RED.validators.number()},
+            command: {value:""},
+            argument: {value:""},
+            usemsgtopic: {value: false}
+            
+        },
+        inputs:1,
+        outputs:1,
+        icon: "ur.png",
+        label: function() {
+            return this.name||"dashboard-server";
+        },
+        oneditprepare: function(){
+            for (var i = 0; i < values.length; i++) {
+                var value = values[i].value;
+                $('#node-input-command').append($("<option></option>").attr("value", value).text(value));
+            }                
+            // Make sure the selected value is also selected in the <select> tag
+            $('#node-input-command').val(this.command);
+
+            $('#node-input-command').on('change', ()=>{
+                var val = $('#node-input-command').val();
+                for (let i = 0; i < values.length; i++) {
+                    const element = values[i];
+                    if(element.value === val){
+                        if(element.argument === false){
+                            $('#node-argument').hide();
+                        }else{
+                            $('#node-argument').show();
+                            $('#node-input-argument').attr("placeholder", element.placeholder);
+                        }
+                    }                    
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="dashboard-server">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-host">Host</label>
+        <input type="text" id="node-input-host" placeholder="host">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port">Port</label>
+        <input type="text" id="node-input-port" placeholder="port">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-command"><i class="fa fa-sign-out"></i>command</label>
+        <select type="text" id="node-input-command" placeholder="command"></select>
+    </div>
+    <div class="form-row" id="node-argument">
+            <label for="node-input-argument">argument</label>
+            <input type="text" id="node-input-argument">
+    </div>
+    <br>
+    <div class="form-row" >
+            <label for="node-input-usemsgtopic">use msg.topic</label>
+            <input type="checkbox" id="node-input-usemsgtopic">
+    </div>
+    
+</script>
+
+<script type="text/x-red" data-help-name="dashboard-server">
+    <p>Connects a UR-Robot via the Dashboard Server Interface</p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>topic<span class="property-type">string</span></dt>
+            <dd> The command which is sent to the robot (is only considered if the option use msg.topic is enabled). For example msg.topic: 'PolyscopeVersion'</dd>
+        </dl>
+
+    <h3>Outputs</h3>
+        <dl class="message-properties">
+            <dt>payload <span class="property-type">string</span></dt>
+            <dd>the response  from the robot of the last sent command.</dd>
+
+            <dt>topic <span class="property-type">string</span></dt>
+            <dd>the command to which the payload refers.</dd>
+
+            <dt>timestamp <span class="property-type">number</span></dt>
+            <dd>number of milliseconds between the date object and midnight January 1, 1970 UTC</dd>
+        </dl>
+</script>

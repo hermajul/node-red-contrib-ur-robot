@@ -1,0 +1,37 @@
+<script type="text/javascript">
+
+        RED.nodes.registerType('rtde-interface',{
+            category: 'ur robot',
+            color: '#C0DEED',
+            defaults: {
+                name: {value:""}                
+            },
+            inputs:1,
+            outputs:1,
+            icon: "ur.png",
+            label: function() {
+                return this.name||"rtde-interface";
+            },
+            
+        });
+    </script>
+    
+    <script type="text/x-red" data-template-name="rtde-interface">
+        
+        
+    </script>
+    
+    <script type="text/x-red" data-help-name="rtde-interface">
+        <p>Decodes the data from Realtime Data Exchange Interface of UR-Robots</p>
+
+        <h3>Inputs</h3>
+            <dl class="message-properties">
+                <dt>payload<span class="property-type">Buffer</span></dt>
+                <dd>needs the Buffer stream of an tcp node which is connected to an UR-Robot on Port 30001 or 30002/dd>
+            </dl>
+        <h3>Outputs</h3>
+            <dl class="message-properties">
+                <dt>payload<span class="property-type">object</span></dt>
+                <dd>contains the decoded data as an JSON Object/dd>
+            </dl>
+    </script>
