@@ -23,4 +23,4 @@ All commands are listed here: https://www.universal-robots.com/how-tos-and-faqs/
 
 To read the real time data exchange, a tcp node is required
 See the example configuration in the picture below:
-![alt text](https://github.com/hermajul/node-red-contrib-ur-robot/blob/master/img/node-red-rdte-config-tcp.png)
+![alt text](https://github.com/hermajul/node-red-contrib-ur-robot/blob/master/img/node-red-rtde-config-tcp.png)
