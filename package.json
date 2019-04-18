@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-ur-robot",
-  "version": "1.0.3",
-  "description": "https://github.com/hermajul/node-red-contrib-ur-robot.git",
+  "version": "1.0.4",
+  "description": "Node-red nodes for the dashboard-server interface and decoding of the rtde interface.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hermajul/node-red-contrib-ur-robot.git"

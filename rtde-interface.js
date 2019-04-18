@@ -8,11 +8,15 @@ module.exports = function(RED) {
         var node = this;
         
         node.on('input', function(msg) {
-            var buf = Buffer.from(msg.payload);
-            var result = new ur().onData(buf)
-            if(result !== undefined){
-                msg.payload = result;
-            node.send(msg);
+            try {
+                var buf = Buffer.from(msg.payload);
+                var result = new ur().onData(buf)
+                if(result !== undefined){
+                    msg.payload = result;
+                node.send(msg);
+                }
+            } catch (error) {
+                node.error('error occurred: ', err);
             }
         });
     }

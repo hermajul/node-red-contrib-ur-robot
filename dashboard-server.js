@@ -28,14 +28,19 @@ module.exports = function(RED) {
             node.error('error at tcp connection', err);
         });
         node.on('input', function(msg) {
-            var arg = config.argument || '';
-            var com = config.command  || '';
-            var command = com + ' ' + arg + '\n';
-            if(config.usemsgtopic === true){
-                command = msg.topic + '\n';
+            try {
+                var arg = config.argument || '';
+                var com = config.command  || '';
+                var command = com + ' ' + arg + '\n';
+                if(config.usemsgtopic === true){
+                    command = msg.topic + '\n';
+                }
+                client.write(command);
+                this.context()['last-ur-command'] = msg.topic || com + ' ' + arg;
+            } catch (error) {
+                node.error('error at input ', err);
             }
-            client.write(command);
-            this.context()['last-ur-command'] = msg.topic || com + ' ' + arg;
+            
         });
     }
     RED.nodes.registerType("dashboard-server",DashboardServer);
